@@ -1,2 +1,2 @@
 # COBOL-programs
- This is a repository that will post content, exercises, programs and projects about COBOL language.
+ This is a repository that I will post some programs, exercises and projects related to Programming Language COBOL.
