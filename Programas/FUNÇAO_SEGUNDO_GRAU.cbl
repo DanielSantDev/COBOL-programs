@@ -5,7 +5,7 @@
       * Tectonics: cobc
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       PROGRAM-ID. EQUACAO-SEGUNDO-GRAU.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
@@ -37,10 +37,14 @@
        CALCULO-RAIZES.
            IF WS-D < 0
                DISPLAY 'RAIZ REAL NAO EXISTE.'
-               STOP RUN
-
-           ELSE WS-D = 0
-               COMPUTE WS-A
-               DISPLAY
-
-            STOP RUN.
+           ELSE
+               IF WS-D = 0
+                   COMPUTE WS-X1 = -(WS-B) / (2*WS-A)
+                   DISPLAY "EXISTE 1 RAIZ" WS-X1
+               ELSE
+                   COMPUTE WS-D = FUNCTION SQRT (WS-D)
+                   COMPUTE WS-X1 = (-(WS-B) + WS-D) / (2*WS-A)
+                   COMPUTE WS-X2 = (-(WS-B) - WS-D) / (2*WS-A)
+                   DISPLAY"EXISTEM 2 RAIZES: " WS-X1
+               END-IF.
+           STOP RUN.
