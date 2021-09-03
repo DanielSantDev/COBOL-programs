@@ -15,7 +15,7 @@
            MOVE ZEROS TO DADOS.
            ACCEPT W-RAIO.
            COMPUTE W-AREA = 3.1416 * (W-RAIO ** 2).
-      *DASDASDASDASDASDSDAD
+      *
            DISPLAY "Area = " W-AREA.
            DISPLAY "Data do Sistema = " W-DIA "/" W-MES "/" W-ANO.
            DISPLAY "FIM DO PROGRAMA".
