@@ -2,14 +2,14 @@
        PROGRAM-ID. PROGRAM-CALCULA.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       01 WS-NOME           PIC X(30).
-       01 DADOS.
+       01  WS-NOME           PIC X(30).
+       01  DADOS.
            05 WS-NOTA1      PIC 9(02)V9.
            05 WS-NOTA2      PIC 9(02)V9.
            05 WS-NOTA3      PIC 9(02)V9.
            05 WS-MEDIA      PIC 9(02)V9.
-       01 WS-CONT           PIC X(01) VALUE SPACES.
-       01 DADOS-E.
+       01  WS-CONT           PIC X(01) VALUE SPACES.
+       01  DADOS-E.
            05 WS-NOTA1-E    PIC Z9.9.
            05 WS-NOTA2-E    PIC Z9.9.
            05 WS-NOTA3-E    PIC Z9.9.
@@ -22,6 +22,7 @@
            STOP RUN.
       *
        PROCESSO.
+           MOVE SPACES TO WS-CONT.
            PERFORM ENTRADA-DADOS.
            PERFORM CALCULA-MEDIA.
            PERFORM MOSTRA-RESULTADO.
@@ -58,11 +59,13 @@
               DISPLAY "REPROVADO"
            ELSE
               DISPLAY "APROVADO".
-      *
+      *    STOP " ".
+      *    STOP DÁ UMA PAUSA
        FINALIZA.
            DISPLAY "FIM DO PROGRAMA !".
       *
        CONTINUA.
            DISPLAY "DESEJA CONTINUAR? (S/N): ".
-           ACCEPT WS-CONT WITH PROMPT AUTO.
+           ACCEPT WS-CONT.
+      *    ACCEPT WS-CONT WITH PROMPT AUTO.
       *FUNÇÃO: WITH PROMPT AUTO(NÃO NECESSITA DO ENTER)
