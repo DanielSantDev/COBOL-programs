@@ -1,17 +1,27 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. REGRAVA.
        ENVIRONMENT DIVISION.
+      *
        INPUT-OUTPUT SECTION.
+      *seção para manipulação de arquivos
+      *
        FILE-CONTROL.
+      *características dos arquivos manipulados
+      *
            SELECT CADCLI ASSIGN TO DISK
+      *
               ORGANIZATION IS SEQUENTIAL
+      *       organização dos registros de forma sequencial
               ACCESS MODE IS SEQUENTIAL
+      *       acesso aos dados de forma sequencial
               FILE STATUS IS WS-FS.
+      *       código de verificação para as operações I/O
       *
        DATA DIVISION.
        FILE SECTION.
        FD CADCLI VALUE OF FILE-ID IS "CLIENTE.DAT".
        01 REG-CLIENTE.
+      *linha de registro
            05 CLIENTE-ID.
               10 AGENCIA    PIC 9(03).
               10 CONTA      PIC 9(06).
@@ -20,6 +30,7 @@
       *
        WORKING-STORAGE SECTION.
        01 WS-FS         PIC X(02) VALUE SPACES.
+      *mostra o status do programa
       *
        PROCEDURE DIVISION.
        INICIO.
@@ -30,13 +41,17 @@
       *
        ABRE-ARQ.
            OPEN OUTPUT CADCLI.
+      *    abre o arquivo e posiciona no primeiro registro
+      *    cria um arquivo novo sequencial
            IF WS-FS NOT EQUAL "00"
+      *    se diferente de 00 algo errado aconteceu
              DISPLAY "ERRO DE ABERTURA - " WS-FS
              STOP RUN.
       *
        GRAVA-REG.
            CLOSE CADCLI.
            OPEN EXTEND CADCLI.
+      *    posiciona o arquivo para escrita no primeiro registro free
       *
            MOVE 001                 TO AGENCIA.
            MOVE 002346              TO CONTA.

@@ -1,10 +1,10 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. GRAVA.
+       PROGRAM-ID. REGRAVA.
        ENVIRONMENT DIVISION.
       *
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-      *     SELECT CADCLI ASSIGN CADC
+      *
            SELECT CADCLI ASSIGN TO DISK
               ORGANIZATION IS SEQUENTIAL
               ACCESS MODE IS SEQUENTIAL
@@ -12,23 +12,22 @@
        DATA DIVISION.
        FILE SECTION.
        FD CADCLI VALUE OF FILE-ID IS "CLIENTE.DAT".
-      * FD CADCLI
-      *     RECORDING MODE IS F.
+      *
        01 CLIENTE-FILE.
            05 CLIENTE-ID.
               10 AGENCIA    PIC 9(03).
               10 CONTA      PIC 9(06).
            05 NOME          PIC X(20).
            05 SALDO         PIC 9(07)V99.
+      *
        WORKING-STORAGE SECTION.
-       01 WS-CLIENTE-FILE.
-           05 WS-CLIENTE-ID.
-              10 WS-AGENCIA PIC 9(03).
-              10 WS-CONTA   PIC 9(06).
-           05 WS-NOME       PIC X(20).
-           05 WS-SALDO      PIC 9(07)V99.
+       01 WS-NOME           PIC X(20).
+       01 WS-CLIENTE-ID.
+           10 WS-AGENCIA    PIC 9(03).
+           10 WS-CONTA      PIC 9(06).
        01 WS-FS             PIC X(02) VALUE ZEROS.
        01 WS-FIM            PIC X(01) VALUE 'N'.
+      *
        PROCEDURE DIVISION.
        INICIO.
            PERFORM ABRE-ARQ.
@@ -41,14 +40,13 @@
              DISPLAY "ERRO DE ABERTURA - " WS-FS
              STOP RUN.
        PROCESSO.
-           PERFORM ENTRA-CONTA.
+           PERFORM ENTRA-DADOS.
            PERFORM LER-REG UNTIL WS-FIM = 'S' OR 'A'.
-           IF WS-FIM = 'S'
-               PERFORM GRAVA-REG
+           IF WS-FIM = 'A'
+               PERFORM REGRAVA-REG
            ELSE
-               DISPLAY 'REGISTRO JA EXISTE'
-           END-IF.
-       ENTRA-CONTA.
+               DISPLAY 'REGISTRO NAO ENCONTRADO'.
+       ENTRA-DADOS.
            DISPLAY 'ENTRE COM A AGENCIA: '.
            ACCEPT WS-AGENCIA.
            DISPLAY 'ENTRE COM A CONTA CORRENTE: '.
@@ -56,16 +54,15 @@
        LER-REG.
            READ CADCLI AT END MOVE 'S' TO WS-FIM.
            IF WS-CLIENTE-ID = CLIENTE-ID THEN
-               MOVE 'A'          TO WS-FIM
+              MOVE 'A'     TO WS-FIM
            END-IF.
-       GRAVA-REG.
-           PERFORM ENTRA-DADOS.
-           CLOSE CADCLI.
-           OPEN EXTEND CADCLI.
-           MOVE WS-CLIENTE-FILE TO CLIENTE-FILE
-           WRITE CLIENTE-FILE.
-       ENTRA-DADOS.
-           DISPLAY 'ENTRE COM O NOME DO CLIENTE: '.
+       REGRAVA-REG.
+           DISPLAY 'ENTRE COM A ALTERAÇÃO DO NOME: '.
            ACCEPT WS-NOME.
-           DISPLAY 'ENTRE COM O SALDO: '.
-           ACCEPT WS-SALDO.
+           MOVE WS-NOME TO NOME.
+           REWRITE CLIENTE-FILE.
+      *    substitui os dados de um registro de um arquivo aberto
+           IF WS-FS EQUAL "00"
+              DISPLAY 'REGISTRO GRAVADO COM SUCESSO'
+           ELSE
+              DISPLAY 'ERRO DE GRAVACAO - ' WS-FS.

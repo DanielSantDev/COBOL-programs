@@ -41,6 +41,7 @@
            STOP RUN.
        ABRE-ARQ.
            OPEN I-O CADCLI.
+      *    abre o arquivo e permite alteração e leitura dos registros
            IF WS-FS NOT EQUAL "00"
              DISPLAY "ERRO DE ABERTURA - " WS-FS
              STOP RUN.
