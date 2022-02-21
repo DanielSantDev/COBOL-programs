@@ -25,7 +25,6 @@
        01 WS-MESES          PIC 9(02).
        01 WS-ANOS           PIC 9(02).
        01 WS-FALTA          PIC 9(02).
-
        PROCEDURE DIVISION.
        ENTRADA-DE-DADOS.
            DISPLAY 'ENTRE COM O SEU NOME: '.
