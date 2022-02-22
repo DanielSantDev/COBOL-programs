@@ -31,21 +31,18 @@
                DISPLAY "SUA MEDIA FOI: " WS-MEDIA
                DISPLAY 'DIGITE A TERCEIRA NOTA: '
                ACCEPT WS-NOTA3
-           ELSE
-               DISPLAY "SUA MEDIA FOI: " WS-MEDIA
-               DISPLAY "PARABENS! VOCE FOI APROVADO!"
-           END-IF.
-      *
-       SEPARA-MAIOR.
-           IF WS-NOTA1 > WS-NOTA2
-               COMPUTE WS-MEDIA = (WS-NOTA1 + WS-NOTA3 / 2)
-           ELSE
-               COMPUTE WS-MEDIA = (WS-NOTA2 + WS-NOTA3 / 2)
+               IF WS-NOTA1 > WS-NOTA2
+                   COMPUTE WS-MEDIA = (WS-NOTA1 + WS-NOTA3) / 2
+               ELSE
+                   COMPUTE WS-MEDIA = (WS-NOTA2 + WS-NOTA3) / 2
            END-IF.
       *
        MOSTRA-RESULTADO-FINAL.
            IF WS-MEDIA < 6
                DISPLAY "VOCE FOI REPROVADO"
+               DISPLAY "SUA MEDIA " WS-MEDIA
            ELSE
                DISPLAY "VOCE FOI APROVADO"
+               DISPLAY "SUA MEDIA " WS-MEDIA
+           END-IF.
            STOP RUN.
