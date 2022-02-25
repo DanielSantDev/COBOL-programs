@@ -8,12 +8,12 @@
        PROGRAM-ID. MediaSemestral.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-           01 WS-NOME PIC X(20).
+           01 WS-NOME PIC X(30).
            01 WS-NOTAS.
-               02 WS-NOTA1     PIC 9(02)V9.
-               02 WS-NOTA2     PIC 9(02)V9.
-               02 WS-NOTA3     PIC 9(02)v9.
-               02 WS-MEDIA     PIC 9(02)V9.
+               05 WS-NOTA1     PIC 9(02)V9.
+               05 WS-NOTA2     PIC 9(02)V9.
+               05 WS-NOTA3     PIC 9(02)v9.
+               05 WS-MEDIA     PIC 9(02)V9.
       *
        PROCEDURE DIVISION.
        ENTRADA-DE-DADOS.
@@ -26,7 +26,7 @@
            ACCEPT WS-NOTA2.
       *
        MEDIA.
-           COMPUTE WS-MEDIA = (WS-NOTA1 + WS-NOTA2 / 2).
+           COMPUTE WS-MEDIA = (WS-NOTA1 + WS-NOTA2) / 2.
            IF WS-MEDIA < 6
                DISPLAY "SUA MEDIA FOI: " WS-MEDIA
                DISPLAY 'DIGITE A TERCEIRA NOTA: '
@@ -39,10 +39,10 @@
       *
        MOSTRA-RESULTADO-FINAL.
            IF WS-MEDIA < 6
-               DISPLAY "VOCE FOI REPROVADO"
+               DISPLAY "VOCE FOI REPROVADO " WS-NOME
                DISPLAY "SUA MEDIA " WS-MEDIA
            ELSE
-               DISPLAY "VOCE FOI APROVADO"
+               DISPLAY "VOCE FOI APROVADO " WS-NOME
                DISPLAY "SUA MEDIA " WS-MEDIA
            END-IF.
            STOP RUN.
