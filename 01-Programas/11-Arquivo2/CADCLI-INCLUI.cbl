@@ -21,6 +21,7 @@
        DATA DIVISION.
        FILE SECTION.
        FD CADCLI VALUE OF FILE-ID IS "CLIENTE.DAT".
+      *FILE DESCRIPTION
        01 CLIENTE-FILE.
            05 CLIENTE-ID.
               10 AGENCIA    PIC 9(03).
