@@ -1,0 +1,24 @@
+//KC03999 A JOB (FATEC),'ANESIO',CLASS=A,MSGCLASS=X,
+//	 NOTIFY=&SYSUID
+//*********************************************************
+//* APAGA ARQUIVO DE ALUNO                                *
+//*********************************************************
+//APAGA EXEC PGM=IEFBR14
+//STEP01 DD DSN=KC03999.AULA.ALUNO,
+//DISP=(MOD,DELETE,DELETE),
+//SPACE=(TRK,(1,1),RLSE),UNIT=SYSDA
+//*********************************************************
+//* CRIAR ARQUIVO DE ALUNO                                *
+//*********************************************************
+//STEP02 EXEC PGM=ICEGENER
+//SYSPRINT DD SYSOUT=*
+//SYSUT2 DD DSN=KC03999.AULA.ALUNO,
+//DISP=(NEW,CATLG,DELETE),
+//SPACE=(TRK,(1,1),RLSE),UNIT=SYSDA,
+//DCB=(LRECL=40,RECFM=FB,DSORG=PS,BLKSIZE=0)
+//SYSUT1 DD *
+180019JOAO DAS NEVES 		M075
+180029MARIA JOAQUINA 		F055
+180039MARIA MADALENA DE JESUS 	F080
+180049ALBERT EINSTEN 		M095
+180059JOAOZINHO DA SILVA 	M020
