@@ -1,0 +1,25 @@
+//KC02999A  JOB 'FATEC','ANESIO',CLASS=A, 
+//        MSGCLASS=X,NOTIFY=&SYSUID   
+//***************************************
+//* APAGA ARQUIVO VSAM ANTIGO    
+//*************************************** 
+//STEP1    EXEC PGM=IDCAMS 
+//SYSPRINT DD  SYSOUT=*   
+//SYSIN    DD  *      
+  DELETE KC02999.VSAM.KSDSFILE.CLUSTER 
+//***************************************
+//* CRIA NOVO ARQUIVO VSAM  
+//***************************************
+//STEP2    EXEC PGM=IDCAMS 
+//SYSPRINT DD  SYSOUT=* 
+//SYSIN    DD  *
+  DEFINE CLUSTER (NAME(KC02999.VSAM.KSDSFILE.CLUSTER) -
+           INDEXED -
+           KEYS(9,0) - 
+           RECORDSIZE(38,38)    - 
+           CYLINDERS(3,2)       -
+           FREESPACE(10,20)     - 
+           CISZ(4096)) - 
+           DATA (NAME(KC02999.VSAM.KSDSFILE.DATA)) -
+           INDEX (NAME(KC02999.VSAM.KSDSFILE.INDEX))
+/*

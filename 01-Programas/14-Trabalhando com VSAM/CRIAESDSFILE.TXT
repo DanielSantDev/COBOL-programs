@@ -1,0 +1,17 @@
+//KC02999X JOB 'FATEC','ANESIO',CLASS=A,MSGLEVEL=(1,1),
+//         MSGCLASS=X,NOTIFY=&SYSUID,REGION=4M
+//*****************************************************
+//* EXEMPLO DE JCL PARA CRIAR ARQUIVO SEQUENCIAL (ESDS)
+//*****************************************************
+//STEP1    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSOUT   DD SYSOUT=*
+//SYSIN   DD *
+        DEFINE CLUSTER (NAME(KC02999.VSAM.ESDSFILE) -
+           NONINDEXED -
+           RECORDS(10 50) -
+           BUFFERSPACE(100000) -
+           RECSZ(80 80) -
+           CISZ(4096) -
+           FREESPACE (3 3)) -
+           DATA (NAME(KC02999.VSAM.ESDSFILE.DATA))
